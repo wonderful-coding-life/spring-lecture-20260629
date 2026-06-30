@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.mapper.ArticleMapper;
 import com.example.demo.mapper.MemberMapper;
+import com.example.demo.model.Article;
 import com.example.demo.model.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,12 @@ public class MyBatisApplication implements ApplicationRunner {
     @Autowired
     private MemberMapper memberMapper;
 
+    @Autowired
+    private ArticleMapper articleMapper;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        test3();
+        testArticle1();
     }
 
     // 생성
@@ -61,5 +66,13 @@ public class MyBatisApplication implements ApplicationRunner {
     private void test5() {
         int count = memberMapper.delete(5L);
         log.info("삭제 결과 {}", count);
+    }
+
+    // 전체 게시글
+    private void testArticle1() {
+        List<Article> articles = articleMapper.selectAll();
+        for (Article article : articles) {
+            log.info("게시글 {}", article);
+        }
     }
 }
