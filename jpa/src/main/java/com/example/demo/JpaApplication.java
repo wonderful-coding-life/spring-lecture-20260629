@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.entity.Article;
 import com.example.demo.entity.Member;
+import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import java.util.List;
 public class JpaApplication implements ApplicationRunner {
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -26,7 +30,18 @@ public class JpaApplication implements ApplicationRunner {
                 Member.builder().name("김도윤").email("DoyunKim@hanbit.co.kr").age(10).build()
         );
         memberRepository.saveAll(members);
-        test3();
+
+        //Member member = memberRepository.findById(1L).orElseThrow();
+        for (int i = 0; i < 100; i++) {
+            var article = Article.builder()
+                    .title("제목 " + i)
+                    .description("본문 " + i)
+                    //.member(member).build();
+                    .memberId(1L).build();
+            articleRepository.save(article);
+        }
+
+        test4();
     }
 
     private void test1() {
@@ -54,5 +69,13 @@ public class JpaApplication implements ApplicationRunner {
         for (Member member : members) {
             log.info("회원 {}", member);
         }
+    }
+
+    // ID로 게시글 조회
+    private void test4() {
+        Article article = articleRepository.findById(10L).orElseThrow();
+        log.info("게시글 {}", article);
+        Member member = memberRepository.findById(article.getMemberId()).orElseThrow();
+        log.info("작성자 {}", member);
     }
 }
