@@ -37,8 +37,8 @@ public class MemberController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    List<MemberResponse> postMembers(@RequestBody List<MemberRequest> members) {
-        return memberService.subscribeBatch(members);
+    MemberResponse postMembers(@RequestBody MemberRequest member) {
+        return memberService.subscribe(member);
     }
 
     @PutMapping("/{id}")
