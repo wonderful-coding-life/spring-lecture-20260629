@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -39,11 +40,28 @@ public class MemberControllerTests {
     @Test
     public void testSubscribe() throws Exception {
         String requestBody = """
-        {
-            "name": "윤서준2",
-            "email": "SeojunYoon2@hanbit.co.kr",
-            "age": 10
-        }
+[
+    {
+        "name": "윤서준",
+        "email": "SeojunYoon@hanbit.co.kr",
+        "age": 10
+    },
+    {
+        "name": "윤광철",
+        "email": "KwangcheolYoon@hanbit.co.kr",
+        "age": 43
+    },
+    {
+        "name": "공미영",
+        "email": "MiyoungKong@hanbit.co.kr",
+        "age": 21
+    },
+    {
+        "name": "김도윤",
+        "email": "DoyunKim@hanbit.co.kr",
+        "age": 10
+    }
+]
                     """;
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/v1/members")
@@ -54,14 +72,11 @@ public class MemberControllerTests {
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("""
-        {
-            "name": "윤서준2",
-            "email": "SeojunYoon2@hanbit.co.kr",
-            "age": 10
-        }
-                """, JsonCompareMode.LENIENT
-               ))
-                .andExpect(jsonPath("$.id").isNumber());
+                .andExpect(jsonPath("$", hasSize(4)))
+                .andExpect(jsonPath("$[0].id").isNumber())
+                .andExpect(jsonPath("$[0].name").value("윤서준"))
+                .andExpect(jsonPath("$[0].email").value("SeojunYoon@hanbit.co.kr"))
+                .andExpect(jsonPath("$[0].age").value(10))
+        ;
     }
 }

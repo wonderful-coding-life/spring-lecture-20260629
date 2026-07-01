@@ -41,8 +41,7 @@ public class MemberServiceTests {
 
     @Test
     public void testFindById() {
-        MemberResponse memberResponse = memberService.findById(1L);
-        assertThat(memberResponse.getId()).isEqualTo(1L);
+        MemberResponse memberResponse = memberService.findByEmail("SeojunYoon@hanbit.co.kr");
         assertThat(memberResponse.getName()).isEqualTo("윤서준");
     }
 

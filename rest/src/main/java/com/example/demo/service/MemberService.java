@@ -40,6 +40,11 @@ public class MemberService {
         return mapToMemberResponse(member);
     }
 
+    public MemberResponse findByEmail(String email) {
+        Member member = memberRepository.findByEmail(email).orElseThrow();
+        return mapToMemberResponse(member);
+    }
+
     private MemberResponse mapToMemberResponse(Member member) {
         return MemberResponse.builder()
                 .id(member.getId())
