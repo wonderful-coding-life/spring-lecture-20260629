@@ -19,6 +19,8 @@ public class Member {
     //@Column(name="display_name")
     private String name;
     //@Column(name="contact")
+    @Column(unique = true)
     private String email;
     private Integer age;
+    private Boolean enabled;
 }

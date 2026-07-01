@@ -34,6 +34,5 @@ public class Article {
     @Column(name="updated")
     private LocalDateTime updated;
     @ManyToOne
-    @JoinColumn(name = "member_id")
     private Member member;
 }
