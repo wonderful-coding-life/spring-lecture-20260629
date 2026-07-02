@@ -5,7 +5,8 @@
     <title>올인원 스프링부트 정복</title>
 </head>
 <body>
-<h1>올인원 스프링부트 정복</h1>
+
+<div th:replace="~{common::header}"></div>
 
 <p th:text="${name}">공미영</p>
 <p th:text="${email}">MiyoungKong@hanbit.co.kr</p>
@@ -13,6 +14,10 @@
 <p th:text="${member.name}">공미영</p>
 <p th:text="${member.email}">MiyoungKong@hanbit.co.kr</p>
 <p th:text="${member.age}">23</p>
+
+<p th:text="${#temporals.format(now, 'yyyy년 MM월 dd일')}">2000년 1월 1일 00:00:00</p>
+
+<div th:replace="~{common::footer}"></div>
 
 </body>
 </html>

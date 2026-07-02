@@ -6,13 +6,17 @@
 </head>
 <body>
 
+<div th:replace="~{common::header}"></div>
+
 <table>
     <tr th:each="member : ${members}">
-        <td th:text="${member.name}">김희선</td>
+        <td th:text="${member.name}" style="color: blue; font-size: 24px;">김희선</td>
         <td th:text="${member.email}">HeesunKim@hanbit.co.kr</td>
         <td th:text="${member.age}">18</td>
     </tr>
 </table>
+
+<div th:replace="~{common::footer}"></div>
 
 </body>
 </html>

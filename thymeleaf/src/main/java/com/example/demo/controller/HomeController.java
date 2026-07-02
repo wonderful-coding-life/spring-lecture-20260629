@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -17,6 +19,12 @@ public class HomeController {
                         .name("윤서준")
                         .email("SeojunYoon@hanbit.co.kr")
                         .age(10).build());
+        //var now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm"));
+        var now = LocalDateTime.now();
+
+        model.addAttribute("now", now);
+
+
         return "model";
     }
 
